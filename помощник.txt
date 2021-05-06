@@ -1,0 +1,40 @@
+https://core.telegram.org/bots/api
+https://github.com/yagop/node-telegram-bot-api
+
+Распаршенный JSON
+function debug(obj = {}) {
+	return JSON.stringify(obj, null, 4)
+}
+
+module.exports = debug - пример экспорта
+const debug = require('./file') - пример импорта
+
+on - ответ на сообщение
+onText - ответ на команду
+
+<iframe src="https://monitor.sbis.ru/d-solo/b9DogIvGz/intsidenty?orgId=1&refresh=30s&from=1620140898728&to=1620141198728&panelId=4" width="450" height="200" frameborder="0"></iframe> - мб отправлять хтмл, но фрейм не работает
+
+сделать чтобы норм клава вылезала(размер) + норм работала авторизация 
+
+// const tg_usaers = {
+//     390869132: "каменовский",
+//     123: "topeopr",
+//     14324: "demid"
+// }
+
+// const html = `
+// <a src="https://monitor.sbis.ru/d-solo/b9DogIvGz/intsidenty?orgId=1&refresh=30s&from=1620140898728&to=1620141198728&panelId=4" width="450" height="200" frameborder="0"></a>
+// `
+
+//это добавление, работает, не трогай
+// const users = new Users({
+//     _id: 155255523,
+//     chatId: 45651,
+//     name: "saSAsasAASsda"
+// })
+
+// users.save()
+//     .then(user => {
+//         console.log(user)
+//     })
+//     .catch(e => console.log(e))

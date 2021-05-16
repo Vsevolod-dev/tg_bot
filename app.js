@@ -1,12 +1,28 @@
 const TelegramBot = require('node-telegram-bot-api');
-const request = require('request');
+//const request = require('request');
 const express = require('express')
 const mongoose = require('mongoose');
+
+// const Router = require('express-router')
+// const router = Router()
+// router.post('/bot', ctx => {
+//     console.log(ctx)
+//     ctx.status = 200
+// })
+
+
+const app = express() 
+
 const PORT = process.env.PORT || 3000
-const app = express()
 
 const token = '1765547135:AAFH8jT27hH0haFqy3eQ2YUFQA40CdAjg0k';
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(token, {
+    webHook: {
+        port: PORT
+    }
+});
+
+
 
 // const tg_usaers = {
 //     390869132: "каменовский",
@@ -23,8 +39,11 @@ async function start() {
         })
             .then(() => console.log("MongoDB has startes"))
             .catch(e => console.log(e))
+        bot.setWebHook(`35.184.12.175/bot`, () => {
+            console.log('WebHook has been started')
+        })
         app.listen(PORT, () => {
-            console.log('Server has benn started')
+            console.log('Server has been started')
         })
 
         const userSchema = mongoose.Schema({

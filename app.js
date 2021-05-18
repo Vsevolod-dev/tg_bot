@@ -15,20 +15,13 @@ const app = express()
 
 const PORT = process.env.PORT || 3000
 
-const token = '1765547135:AAFH8jT27hH0haFqy3eQ2YUFQA40CdAjg0k';
+const token = '1887316818:AAFi4mGQMyr3X0-y8U8blHX-0VeYo1Uri_E';
 const bot = new TelegramBot(token, {
-    webHook: {
-        port: PORT
-    }
+    // webHook: {
+    //     port: PORT
+    // }
+    polling: true
 });
-
-
-
-// const tg_usaers = {
-//     390869132: "каменовский",
-//     123: "topeopr",
-//     14324: "demid"
-// }
 
 async function start() {
     try {
@@ -39,7 +32,7 @@ async function start() {
         })
             .then(() => console.log("MongoDB has startes"))
             .catch(e => console.log(e))
-        bot.setWebHook(`35.184.12.175/bot`, () => {
+        bot.setWebHook(`35.238.97.90/bot`, () => {
             console.log('WebHook has been started')
         })
         app.listen(PORT, () => {
@@ -97,12 +90,6 @@ async function start() {
                     }
                 });
             }
-            // Users.find({}).then(users => {
-            //     console.log(users)
-            // })
-          //   проверка чат ид или имени в бд
-          //   если норм => список кнопок
-          //   не норм => обратитесь к администратору
           });
 
           bot.on("polling_error", (m) => console.log(m));
@@ -113,3 +100,4 @@ async function start() {
 }
 
 start()
+

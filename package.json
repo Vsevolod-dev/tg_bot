@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-router": "^0.0.1",
+    "json": "^11.0.0",
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.7",
     "node-telegram-bot-api": "^0.52.0",

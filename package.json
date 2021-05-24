@@ -16,6 +16,7 @@
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.7",
     "node-telegram-bot-api": "^0.52.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "subprocess": "^0.3.0"
   }
 }

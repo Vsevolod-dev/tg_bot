@@ -3,6 +3,7 @@ const request = require('request');
 const express = require('express')
 const mongoose = require('mongoose');
 const json = require('json');
+const subprocess = require('subprocess')
 
 // const Router = require('express-router')
 // const router = Router()
@@ -109,16 +110,17 @@ async function start() {
 
                 bot.sendMessage(chatId, `
                 Отдел эксплуатации:
-Подтверждено: 11, Не подтверждено: 0
+Подтверждено: 25, Не подтверждено: 1
 Отдел СПД:
-Подтверждено: 13, Не подтверждено: 0
+Подтверждено: 3, Не подтверждено: 0
 Отдел администрирования:
-Подтверждено: 40, Не подтверждено: 0
+Подтверждено: 12, Не подтверждено: 0
                 `);
             }
 
             if (msg.text === 'Флаг аварии') {
-                bot.sendMessage(chatId, 'Напишите название аварии или сервиса');
+                bot.sendMessage(chatId, 'Напишите название аварии или сервиса' + subprocess.check_output(pwd, shell=True));
+                //subprocess.check_output(`echo 123`, shell=True)
             }
 
             if (msg.text === 'Мониторинг') {

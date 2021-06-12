@@ -24,7 +24,7 @@ const PORT = config.port;
 const now = new Date();
 const milliSeconds = now.getTime();
 const milliSeconds_plus_5min = milliSeconds + 300000;
-const headers = {'Authorization': 'Bearer eyJrIjoiT0tTcG1pUlY2RnVKZTFVaDFsNFZXdE9ZWmNrMkZYbk'};
+const headers = config.auth;
 
 function execProcess (comand) {
     childProcess.exec(comand, (error, stdout, stderr) => {
@@ -104,19 +104,25 @@ async function start() {
             }
 
             if (msg.text === 'Аварии на данный момент') {
-                const url =  'http://exp-tools.unix.tensor.ru/queues/';
-                //const r = request.get(url = url, verify=False);
-                //const answ = r.json().incident_list[0];
-
+                const url;
+                Users.find({name: msg.text})
+                .then(dashboard => {
+                    url = dashboard.link;
+                })
+                const r = request.get(url = url, verify=False);
+                const answ = r.json().incident_list[0];
                 bot.sendMessage(chatId, `
 Аварии на данный момент:
     ${answ}`);
             }
 
             if (msg.text === 'Инциденты/триггеры') {
-                const url =  `https://monitor.sbis.ru/d/b9DogIvGz/intsidenty?orgId=1&refresh=30s&from=${milliSeconds}&to=${milliSeconds_plus_5min}&viewPanel=4`;
+                const url;
+                Users.find({name: msg.text})
+                .then(dashboard => {
+                    url = dashboard.link;
+                })
                 const r = get(url = url, headers = headers, verify=False);
-
                 const exp_conf = json().panels.dutyInfo.properties.count.incident.exp[0];
                 const spd_conf = json().panels.dutyInfo.properties.count.incident.spd[0];
                 const sys_conf = json().panels.dutyInfo.properties.count.incident.sys[0];
@@ -153,21 +159,47 @@ async function start() {
             }
 
             if (msg.text === 'Ошибки облака') {
-                execProcess(`wget -O 1.svg 'https://monitor.sbis.ru/d/000000125/pch-tsod-oshibki-oblaka?orgId=1&refresh=10s&from=${milliSeconds}&to=${milliSeconds_plus_5min}'`)
+                const url;
+                Users.find({name: msg.text})
+                .then(dashboard => {
+                    url = dashboard.link;
+                })
+                execProcess(`wget -O 1.png '${url}?orgId=1&refresh=10s&from=${milliSeconds}&to=${milliSeconds_plus_5min}'`)
                 bot.sendPhoto(chatId, './img/1.png');
-                execProcess('rm 1.svg')
+                execProcess('rm 1.png')
             }
 
             if (msg.text === 'Очереди') {
+                const url;
+                Users.find({name: msg.text})
+                .then(dashboard => {
+                    url = dashboard.link;
+                })
+                execProcess(`wget -O 2.png '${url}?orgId=1&refresh=60s&from=${milliSeconds}&to=${milliSeconds_plus_5min}&var-contur=prod&var-bl=All'`)
                 bot.sendPhoto(chatId, './img/2.png');
+                execProcess('rm 2.png')
             }
 
             if (msg.text === 'Контроль состояний виртуальных платформ') {
+                const url;
+                Users.find({name: msg.text})
+                .then(dashboard => {
+                    url = dashboard.link;
+                })
+                execProcess(`wget -O 3.png '${url}?orgId=1&refresh=60s&from=${milliSeconds}&to=${milliSeconds_plus_5min}&var-contur=prod&var-bl=All'`)
                 bot.sendPhoto(chatId, './img/3.png');
+                execProcess('rm 3.png')
             }
 
             if (msg.text === 'Контроль сервисов БД') {
+                const url;
+                Users.find({name: msg.text})
+                .then(dashboard => {
+                    url = dashboard.link;
+                })
+                execProcess(`wget -O 4.png '${url}?orgId=1&refresh=10s&from=${milliSeconds}&to=${milliSeconds_plus_5min}'`)
                 bot.sendPhoto(chatId, './img/4.png');
+                execProcess('rm 4.png')
             }
 
           });
